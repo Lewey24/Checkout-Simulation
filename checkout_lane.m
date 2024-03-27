@@ -3,17 +3,18 @@ classdef checkout_lane
     %   此处显示详细说明
 
     properties
-        Property1
+        checkout_type
+        customer
     end
 
     methods
-        function obj = untitled2(inputArg1,inputArg2)
+        function obj = checkout_lane(checkout_type)
             %UNTITLED2 构造此类的实例
             %   此处显示详细说明
-            obj.Property1 = inputArg1 + inputArg2;
+            obj.checkout_type = checkout_type;
         end
 
-        function outputArg = method1(obj,inputArg)
+        function obj = getNEXTcustomer(obj,inputArg)
             %METHOD1 此处显示有关此方法的摘要
             %   此处显示详细说明
             outputArg = obj.Property1 + inputArg;
