@@ -47,8 +47,9 @@ classdef Customer
 
     methods
         function obj = Customer()
-            %UNTITLED2 Construct an instance of this class
-            %   Detailed explanation goes here
+            % Constructs a new "Customer" instance
+            %   This constructor randomly assigns a lane preference
+            %   to each new instance
             r = rand;
             if r < Customer.percentBoth
                 obj.lane_preference = Preference.BOTH;
@@ -60,6 +61,10 @@ classdef Customer
         end 
 
         function obj = setCheckoutTime(obj, cashierbool)
+            % setCheckoutTime: randomly assigns a checkout time based on
+            % lane
+            % Inputs: cashierbool: true if cashier checkout, false if self
+            % checkout
             if cashierbool == true
                 obj.checkout_time = round(random(Customer.cashierdist));
             else
@@ -70,8 +75,11 @@ classdef Customer
 
     methods (Static)
         function boolean = checkPercentageSum()
-            %METHOD1 Summary of this method goes here
-            %   Detailed explanation goes here
+            % checkPercentageSum: checks that all customer preference 
+            % percentages add up to 100%
+            % Returns TRUE if percentBoth + percentCashier + percentSelf =
+            % 100
+            % Returns FALSE otherwise
             if Customer.percentBoth + Customer.percentCashier + Customer.percentSelf == 1
                 boolean = true;
             else
