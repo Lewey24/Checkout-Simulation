@@ -3,6 +3,7 @@ classdef Customer
     %   Detailed explanation goes here
 
     properties
+        arrival_time
         lane_preference
         checkout_time
     end
@@ -46,7 +47,7 @@ classdef Customer
     end
 
     methods
-        function obj = Customer()
+        function obj = Customer(arrival_time)
             % Constructs a new "Customer" instance
             %   This constructor randomly assigns a lane preference
             %   to each new instance
@@ -58,6 +59,7 @@ classdef Customer
             else
                 obj.lane_preference = Preference.SELF;
             end
+            obj.arrival_time = arrival_time;
         end 
 
         function obj = setCheckoutTime(obj, cashierbool)

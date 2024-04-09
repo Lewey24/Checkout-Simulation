@@ -6,22 +6,24 @@ Customer.percentCashier(0.25);
 Customer.percentSelf(0.25);
 
 % Parameters for self checkout time distribution
-selfdistlow = 45;
-selfdistpeak = 60;
-selfdisthigh = 180;
+selfdistlow = 60;
+selfdistpeak = 90;
+selfdisthigh = 240;
 
 % Parameters for cashier checkout time distribution
 cashierdistlow = 30;
 cashierdistpeak = 45;
 cashierdisthigh = 120;
 
+% Average customers per minute (must be <= 60)
+custpermin = 6;
+
 %--------------------------------------
 
+Customer.selfdist(makedist("Triangular", "a", selfdistlow, "b", selfdistpeak, "c", selfdisthigh));
+Customer.cashierdist(makedist("Triangular", "a", cashierdistlow, "b", cashierdistpeak, "c", cashierdisthigh));
 
-
-Customer.selfdist(makedist("Triangular", "a", selfdistlow, "b", selfdistpeak, "c", selfdisthigh))
-Customer.cashierdist(makedist("Triangular", "a", cashierdistlow, "b", cashierdistpeak, "c", cashierdisthigh))
-
+custpercent = custpermin / 60;
 
 parameterscorrect = Customer.checkPercentageSum();
 if parameterscorrect == false
@@ -29,5 +31,18 @@ if parameterscorrect == false
     return
 end
 
-c = Customer();
-c.setCheckoutTime(false)
+
+q = Queue(Preference.BOTH);
+
+for i = 1:3600
+    r = rand;
+    if rand <= custpercent
+        c = Customer(i);
+        q = q.addCustomer(c);
+    end
+end
+
+disp("done")
+
+
+
