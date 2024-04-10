@@ -5,12 +5,12 @@ Customer.percentBoth(0.5);
 Customer.percentCashier(0.25);
 Customer.percentSelf(0.25);
 
-% Parameters for self checkout time distribution
+% Parameters for self checkout time triangular distribution (in seconds)
 selfdistlow = 60;
 selfdistpeak = 90;
 selfdisthigh = 240;
 
-% Parameters for cashier checkout time distribution
+% Parameters for cashier checkout time triangular distribution (in seconds)
 cashierdistlow = 30;
 cashierdistpeak = 45;
 cashierdisthigh = 120;
@@ -18,8 +18,10 @@ cashierdisthigh = 120;
 % Average customers per minute (must be <= 60)
 custpermin = 6;
 
+% Number of self checkouts
 numselfcheckouts = 10;
 
+% Number of cashier checkouts
 numcashiercheckouts = 5;
 
 %--------------------------------------
