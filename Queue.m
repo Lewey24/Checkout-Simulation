@@ -50,8 +50,13 @@ classdef Queue
         function [obj, customer] = popFront(obj)
             % popFront: pops the front customer from the queue, and returns
             % that customer
-            customer = obj.queue(1);
-            obj.queue = obj.queue(2:end);
+            if length(obj.queue) > 1
+                customer = obj.queue(1);
+                obj.queue = obj.queue(2:end);
+            else
+                customer = obj.queue(1);
+                obj.queue = [];
+            end
         end
     end
 end

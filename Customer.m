@@ -62,12 +62,12 @@ classdef Customer
             obj.arrival_time = arrival_time;
         end 
 
-        function obj = setCheckoutTime(obj, cashierbool)
+        function obj = setCheckoutTime(obj, type)
             % setCheckoutTime: randomly assigns a checkout time based on
             % lane
             % Inputs: cashierbool: true if cashier checkout, false if self
             % checkout
-            if cashierbool == true
+            if type == Type.CASHIER
                 obj.checkout_time = round(random(Customer.cashierdist));
             else
                 obj.checkout_time = round(random(Customer.selfdist));
