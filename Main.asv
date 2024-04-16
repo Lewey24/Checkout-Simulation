@@ -26,11 +26,13 @@ numcashiercheckouts = 2;
 
 %--------------------------------------
 
+averagewait = [];
 averagequeuelength = [];
+longestwait = 0;
 longestqueuelength = 0;
 customerwaitlengths = [];
 
-for iter = 1:5
+for iter = 1:50
 
     timevec = [];
     selfqueuevec = [];
@@ -92,8 +94,7 @@ for iter = 1:5
             if checkouts(i).empty()
                 [checkouts(i), queues] = checkouts(i).getNextCustomer(queues);
                 if isa(checkouts(i).customer, "Customer") 
-                    wait = time - checkouts(i).customer.arrival_time;
-                    customerwaitlengths(end+1) = wait;
+                    wait = 
                 end
             else
                 checkouts(i).customer.checkout_time = checkouts(i).customer.checkout_time - 1;
@@ -107,59 +108,21 @@ for iter = 1:5
         totalqueuevec(end+1) = selfqueuevec(end) + bothqueuevec(end) + cashierqueuevec(end);
     end
     
-    figure(1)
     hold on
+    figure(1)
     plot(timevec, selfqueuevec)
     figure(2)
-    hold on
     plot(timevec, cashierqueuevec)
     figure(3)
-    hold on
     plot(timevec, bothqueuevec)
     figure(4)
-    hold on
     plot(timevec, totalqueuevec)
 %     legend("Self Checkout Queue Length", "Cashier Checkout Queue Length", "Either Lane Queue Length", "Total Queue Length")
 %     xlabel("time (s)")
 %     ylabel("Customers")
+    
 
-
-    fprintf("Iteration %d done\n", iter)
-    averagequeuelength(iter) = mean(totalqueuevec);
-    if max(totalqueuevec) > longestqueuelength
-        longestqueuelength = max(totalqueuevec);
-    end
 end
 
-figure(1)
-hold on
-title("Self Checkout Queue Length")
-xlabel("time (s)")
-ylabel("Customers")
-figure(2)
-hold on
-title("Cashier Checkout Queue Length")
-xlabel("time (s)")
-ylabel("Customers")
-figure(3)
-hold on
-title("Both Checkout Queue Length")
-xlabel("time (s)")
-ylabel("Customers")
-figure(4)
-hold on
-title("Total Checkout Queue Length")
-xlabel("time (s)")
-ylabel("Customers")
-
-hold off
-histogram(customerwaitlengths)
-title("Customer Wait Times")
-xlabel("Wait Time (s)")
-ylabel("Count")
-
-fprintf("Average customer wait: %f seconds\n", mean(customerwaitlengths))
-fprintf("Longest customer wait: %d seconds\n", max(customerwaitlengths))
-fprintf("Average queue length: %f persons\n", mean(averagequeuelength))
-fprintf("Longest queue length: %d persons\n", longestqueuelength)
+disp("done")
 

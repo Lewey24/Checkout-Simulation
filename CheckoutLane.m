@@ -52,14 +52,6 @@ classdef CheckoutLane
             if earliest ~= 0
                 [queues(earliest), obj.customer] = queues(earliest).popFront();
                 obj.customer = obj.customer.setCheckoutTime(obj.checkout_type);
-
-                if obj.customer.lane_preference == Preference.SELF
-                    disp("Self customer arrived")
-                elseif obj.customer.lane_preference == Preference.CASHIER
-                    disp("Cashier customer arrived")
-                else
-                    disp("Both customer arrived")
-                end
             end
         end
     end
