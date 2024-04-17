@@ -1,3 +1,5 @@
+clear; clc; close all;
+
 % Tunable Parameters ------------------
 
 % Parameters of chance customer prefers either checkout option
@@ -19,10 +21,13 @@ cashierdisthigh = 120;
 custpermin = 6;
 
 % Number of self checkouts
-numselfcheckouts = 4;
+numselfcheckouts = 6;
 
 % Number of cashier checkouts
-numcashiercheckouts = 2;
+numcashiercheckouts = 4;
+
+% Number of model iterations
+iterations = 5;
 
 %--------------------------------------
 
@@ -30,7 +35,7 @@ averagequeuelength = [];
 longestqueuelength = 0;
 customerwaitlengths = [];
 
-for iter = 1:5
+for iter = 1:iterations
 
     timevec = [];
     selfqueuevec = [];
